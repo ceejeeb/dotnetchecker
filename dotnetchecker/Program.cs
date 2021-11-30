@@ -25,6 +25,7 @@ namespace dotnetchecker
             }
             Console.WriteLine();
             Console.WriteLine(".NET Core runtimes installed:");
+            Console.WriteLine();
             Console.WriteLine(dotnetcore());
             Console.ReadLine();
         }
@@ -53,7 +54,7 @@ namespace dotnetchecker
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "dotnet",
-                        Arguments = "--info",
+                        Arguments = "--list-runtimes",
                         RedirectStandardOutput = true,
                         UseShellExecute = false
                     }
@@ -62,10 +63,7 @@ namespace dotnetchecker
 
                 process.Start();
                 var text = process.StandardOutput.ReadToEnd();
-                return text.Replace(".NET runtimes installed:", "#")
-                           .Split('#')[1]
-                           .Replace("To install additional .NET runtimes or SDKs:", "#")
-                           .Split('#')[0];
+                return text;
             }
             catch
             {
